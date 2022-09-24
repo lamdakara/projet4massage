@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<!-- META DONNEES -->
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Lili Giroud, spécialiste en madérothérapie vous propose ses services de massages et de soins à domicile aux alentours de Toulon">
+		<meta name="keywords" content="madérothérapie, soin, corps, visage, faciale, ventre, jambes, avant/après, remodelage, drainage lymphatique, graisse, poids, cellulite, toxines, circulation sanguine, naturel, thérapie, minceur, sport, bien-être, massage, relaxant">
+		<meta name="author" content="Alycia Bedel et Sekouba Fofana">
+		<meta name="copyright" content="© Sixième Sens">
+
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="{{asset('assets/css/base.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/css/account.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/css/bootstrap/css/bootstrap.min.css')}}">
+		{% block stylesheets %}{% endblock %}
+		{% block javascript %}{% endblock %}
+		</head>
+
+		<body>
+		
+			{% block menu %}
+				<!-- MENU -->
+				<nav
+					id="menu">
+
+					<!-- Container menu gauche -->
+					<div class="navLink">
+						<ul>
+							<li><a href="{{path('home')}}">Accueil</a></li>
+							<li><a href="{{path('discovery')}}">Découvrir</a></li>
+							<li><a href="{{path('services')}}">Prestations et tarifs</a></li>
+						<ul>
+					</div>
+
+					<!-- Logo -->
+					<div id="mobileMenu">
+						<a href="{{path('home')}}"><img src="{{asset('assets/img/logoLiliGiroud.svg')}}" alt="logo représentant deux mains l'une au-dessus de l'autre, au milieu le nom de Lili Giroud avec son service massages en madérothérapie" id="logo"></a>
+						<img src="{{asset('assets/img/icon/menuBurger.svg')}}" alt="icon menu burger" id="burgerMenu">
+					</div>
+
+
+					<!-- Container menu droit-->
+					<div class="navLink" id="navRight">
+						<ul>
+							<li>
+								<div id="meetShop">
+									<a href="{{path('cart')}}"><img src="{{asset('assets/img/icon/panier.png')}}" alt="icon panier" id="iconCart"></a>
+									<a href="{{path('meeting')}}">Rendez-vous</a>
+								</div>
+							</li>
+							<li><a href="{{path('blog')}}" id="marginLink">Blog</a></li>
+							{% if app.user %}
+							<li><a href="{{path('account')}}" class="navBurgerLink accountLinkDrop">Mon Compte<img src="{{asset('assets/img/icon/dropDown.svg')}}" alt="" id="dropIcon"></a>
+
+								<!-- Menu déroulant -->
+								<div class="dropdownMenu">
+									<ul>
+										{% if is_granted ('ROLE_ADMIN') %}<li><a href="{{path('admin')}}">Interface administrateur</a></li>{% endif %}
+										{% if app.user %}<li><a href="{{path('app_logout')}}">Déconnexion</a></li>{% endif %}
+									</ul>
+								</div>
+
+							</li>
+							{% else %}
+							<li><a href="{{path('app_login')}}" class="navBurgerLink">Connexion</a></li>
+							{% endif %}
+						</ul>
+					</div>
+
+					<!-- Menu mobile -->
+					<div id="navMobile">
+						<img src="{{asset('assets/img/icon/crossIcon.svg')}}" alt="" id="crossIcon">
+						<a href="{{path('home')}}" class="navBurgerLink">Accueil</a>
+						<a href="{{path('discovery')}}" class="navBurgerLink">Découvrir</a>
+						<a href="{{path('services')}}" class="navBurgerLink">Prestations et tarifs</a>
+						<a href="{{path('meeting')}}" class="navBurgerLink">Rendez-vous</a>
+						<a href="{{path('blog')}}" class="navBurgerLink">Blog</a>
+						
+						{% if app.user %}<a href="{{path('account')}}" class="navBurgerLink">Mon Compte</a>{% else %}<a href="{{path('app_login')}}" class="navBurgerLink">Connexion</a>{% endif %}
+						{% if is_granted ('ROLE_ADMIN') %}<a href="{{path('admin')}}" class="navBurgerLink">Interface administrateur</a>{% endif %}
+						{% if app.user %}<a href="{{path('app_logout')}}" class="navBurgerLink">Déconnexion</a>{% endif %}
+						<a href="{{path('cart')}}" class="navBurgerLink"><img src="{{asset('assets/img/icon/panier.png')}}" alt="icon panier"></a>
+					</div>
+
+				</nav>
+			{% endblock %}
+
+			{% if block("account") is defined %}
+				<!-- PHOTO + TEXTE BIENVENUE -->
+				<header id="accountHeader">
+					<img src="{{asset('uploads/userImage/'~ app.user.image)}}" alt="photo de profil">
+					<p class="titleThree">Bienvenue, {{app.user.firstname}} {{app.user.lastname}}.</p>
+				</header>
+
+				<!-- NAVIGATION COMPTE -->
+				<nav id="navAccount">
+					<a href="{{path('account')}}">Mes réservations</a>
+					<a href="{{path('account_address')}}">Mes adresses</a>
+					<a href="{{path('account_password')}}">Modifier mon mot de passe</a>
+					<a href="{{path('app_logout')}}">Déconnexion</a>
+				</nav>
+			{% endif %}
+			{# inclure les templates pour afficher les messages flashbag #}
+			<div class="container">
+				{% include "commun/_notice.html.twig" %}
+			</div>
+			{% block body %}{% endblock %}
+
+			{% block footer %}
+				<!-- FOOTER -->
+				<footer>
+
+					<!-- Menu icon -->
+					<section id="iconFooter">
+						<ul>
+							<li><a href="#"><img src="{{asset('assets/img/icon/facebookIcon.svg')}}" alt="icon facebook"></a></li>
+							<li><a href="#"><img src="{{asset('assets/img/icon/twitterIcon.svg')}}" alt="icon twitter"></a></li>
+							<li><a href="#"><img src="{{asset('assets/img/icon/linkedinIcon.svg')}}" alt="icon linkedin"></a></li>
+							<li><a href="#"><img src="{{asset('assets/img/icon/instagramIcon.svg')}}" alt="icon instagram"></a></li>
+						</ul>
+					</section>
+
+					<!-- Lien juridique -->
+					<section id="navLaw">
+						<ul>
+							<li><a href="{{path('legal_cgv')}}">CGV</a></li>
+							|
+							<li><a href="{{path('legal_cgu')}}">Mentions légales</a></li>
+							|
+							<li><a href="">Plan du site</a></li>
+						</ul>
+					</section>
+
+				</footer>
+			{% endblock %}
+
+			<script	src="{{asset('assets/js/bootstrap/js/bootstrap.min.js')}}"></script>
+			<script src="{{asset('assets/js/menuBurger.js')}}"></script>
+			{% block javascripts %}{% endblock %}
+		</body>
+
+	</html>

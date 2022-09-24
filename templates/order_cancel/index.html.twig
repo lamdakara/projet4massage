@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur de paiement - Lili Giroud{% endblock %}
+
+{% block body %}
+<main id="order" class="validateOrder">
+
+    <!--TITRE H1 -->
+    <h1 class="title"> Erreur de paiement </h1>
+
+    <!-- PARAGRAPHE -->
+    <h2 class="titleThree alignOrder">Bonjour <strong>{{ order.user.firstname }} {{ order.user.lastname }}</strong></h2>
+    <br><br>
+    <p class="paragraphType alignOrder">Il semblerait que votre paiement est échoué pour votre réservation n° : <strong>{{ order.reference }}</strong>.</p>
+    <br>
+    <p class="paragraphType alignOrder">Une confirmation d'erreur vient de vous être envoyée par email à l'adresse : <strong>{{ order.user.email }}</strong>.</p>
+
+    <!-- LIEN BOUTON -->
+    <a href="{{ path('order') }}" class="buttonBlue buttonAccount">Réessayer le paiement</a>
+</p>
+
+{% endblock %}

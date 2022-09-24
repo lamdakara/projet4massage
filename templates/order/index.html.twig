@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - Lili Giroud {% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('assets/css/order.css')}}"> {% endblock %}
+
+{% block body %}
+	<main id="order">
+		<!-- TITRE -->
+		<h1 class="title">Je réserve mon soin</h2>
+
+		<!-- PARAGRAPHE EXPLICATIVE -->
+		<p class="paragraphType">Choisissez vos préférences avant de réserver votre soin</p>
+
+		<!-- CONTAINER GLOBAL POUR GRILLE -->
+		<section id="containerGlobal">
+			
+			<!-- CHOIX ADRESSES -->
+			<div id="containerAddress">
+				{% set formHtml %}
+
+				<!-- Container des adresses -->
+				<div id="address">
+					{{form_start(form, {action:path('order_summary')})}}
+					{{form_label(form.addresses, 'Choisissez votre adresse de livraison')}}
+				</div>
+				
+				<!-- Bouton ajouter une adresses -->
+				<a href="{{path('account_address_add')}}">Ajouter une nouvelle adresse</a>
+
+				{{form_end(form)}}
+				{% endset %}
+				{{formHtml|replace({'[br]' : '</br>'})|raw}}
+			</div>
+
+			<!-- RECAPITULATIF DE LA COMMANDE -->
+			<div id="containerCart">
+
+				<!-- Titre h2 -->
+				<h2 class="titleThree">Récapitulatif de votre réservation</h2>
+
+				{% for key, cart in carts %}
+					<!-- Soin quantité prix -->
+					<div id="cartOrder">
+						<p><b>{{cart.service.titre}}<br>réservé le {{cart.debut | date('d/m/Y à H:i')}}</b></p>
+						<p>x {{cart|length}}</p>
+						<p>{{cart.service.prix}} €</p>
+					</div>
+				{% endfor %}
+			</div>
+
+		</section>
+
+	</main>
+{% endblock %}

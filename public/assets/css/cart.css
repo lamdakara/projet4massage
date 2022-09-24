@@ -1,0 +1,96 @@
+/* -------- CONTAINER MAIN --------*/
+#cart {
+    padding: 100px 0;
+}
+
+/* -------- GRILLE TITRE --------*/
+/* Container Titre */
+#gridTitle {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding-top: 50px;
+    justify-content: center;
+    border-bottom: 2px solid var(--second-color);
+}
+
+/* Aligner police centre */
+.centergrid {
+    text-align: center;
+}
+
+/* -------- GRILLE RESERVATION --------*/
+/* Container réservation */
+#gridCare {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    padding-top: 40px;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 40px;
+    justify-content: center;
+}
+
+/* Texte réservation */
+#gridCare p {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Bouton supprimer */
+#deleteCart {
+    font-weight: 600;
+    font-size: 20px;
+    text-align: justify;
+    color: var(--second-color);
+    padding-bottom: 10px;
+}
+
+/* -------- TOTAL DU PANIER --------*/
+/* Container total panier */
+#cartFinal {
+    width: 95%;
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding: 100px 0 50px 0;
+}
+
+/* Texte total */
+#cartFinal p {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* -------- PARAGRAPHE SI PANIER VIDE --------*/
+.cartVide {
+    text-align: center;
+    padding: 100px 0;
+}
+
+/* -------- MEDIA QUERIES --------*/
+@media screen and (max-width: 1490px) {
+
+    /* Container réservation */
+    #gridCare {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 920px) {
+
+    /* Container Titre */
+    #gridTitle {
+        width: 90%;
+    }
+
+    /* Container réservation */
+    #gridCare {
+        width: 90%;
+        grid-template-rows: 80px;
+    }
+}

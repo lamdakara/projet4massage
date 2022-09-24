@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement de ma commande - Lili Giroud{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('assets/css/order.css')}}">{% endblock %}
+
+{% block javascript %}
+	<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+	<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block body %}
+	<main id="order">
+
+		<!-- TITRE ET PARAGRAPHE PAGE -->
+		<h1 class="title">Mon Récapitulatif</h2>
+		<p class="paragraphType">Vérifiez vos informations avant de payer votre réservation</p>
+
+		<!-- CONTAINER GLOBAL POUR GRILLE -->
+		<section id="containerGlobal">
+
+			<!-- CHOIX ADRESSES -->
+			<div id="containerAddress">
+
+				<!-- Titre h2 -->
+				<h2 class="titleThree">Mon adresse de domicile</h2>
+
+				<!-- Container des adresses -->
+				<div id="addressAdd">
+					{{delivery|raw}}
+				</div>
+
+			</div>
+
+			<!-- RECAPITULATIF DE LA COMMANDE -->
+			<div id="containerCart">
+
+				<!-- Titre h2 -->
+				<h2 class="titleThree">Récapitulatif de votre réservation</h2>
+
+				{% set total = null %}
+				{% for key,cart in cart %}
+
+				<!-- Soin quantité prix -->
+				<div id="cartOrder">
+					<p><b>{{cart.service.titre}}<br>réservé le {{cart.debut | date('d/m/Y à H:i')}}</b></p>
+					<p>x {{cart|length}}</p>
+					<p>{{cart.service.prix}} €</p>
+					{% set total = total + (cart.service.prix)%}
+				</div>
+			{% endfor %}
+			</div>
+		</section>
+
+		<!-- SOUS TOTAL ET TOTAL -->
+		<section id="total">
+			<p><b>Sous-total :</b> {{ total|number_format(2, ',', '.') }} €</p>
+			<p><b>Total :</b> {{ total|number_format(2, ',', '.') }} €
+		</section>
+
+		<!-- BOUTON PAYER -->
+		<section id="buttonPaid">
+				<a href="{{ path('stripe_create_session', {'reference': reference}) }}" id="checkout-button" class="buttonBlue">Payer {{ total|number_format(2, ',', '.') }} €</a>
+		</section>
+
+	</main>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Mon panier - Lili Giroud {% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('assets/css/cart.css')}}">{% endblock %}
+
+{% block body %}
+	<main id="cart">
+
+		<!-- TITRE -->
+		<h1 class="title">Mon panier</h1>
+
+		{% if carts|length > 0 %}
+		<!-- GRILLE TITRE -->
+		<div id="gridTitle">
+            <h2 class="titleThree">Votre réservation</h2>
+        	<h2 class="titleThree centergrid">Quantité</h2>
+        	<h2 class="titleThree centergrid">Prix</h2>
+            <h2 class="titleThree centergrid">Total</h2>
+        </div>
+
+		{% set total = null %}
+		{% for cart in carts %}
+		<!-- GRILLE RESERVATION PANIER -->
+		<div id="gridCare">
+            <p>{{cart.service.titre}} <br> réservé le {{cart.debut | date('d/m/Y à H:i')}}</p>
+            <p class="centergrid">x {{cart|length}}</p>
+            <p class="centergrid">{{cart.service.prix}} €</p>
+            <p class="centergrid">{{ (cart.service.prix * cart|length )|number_format(2, ',', '.') }} €</p>
+            <p class="centergrid"><a href="{{ path('delete_to_cart', { 'id' : cart.service.id }) }}" id="deleteCart">Supprimer</a></p>
+        </div>
+        
+		{% set total = total + (cart.service.prix * cart|length )%}
+        {% endfor %}
+
+		<!-- TOTAL DU PANIER -->
+		<section id="cartFinal">
+
+				<!-- Nombre réservation -->
+				<div class="containerTotal">
+					<p class="paragraphCart">Nombre de réservation : {{carts|length}}</p>
+				</div>
+
+				<!-- Total mon panier -->
+				<div class="containerTotal">
+					<p class="paragraphCart">Total de mon panier : {{ (total)|number_format(2, ',', '.') }} €</p>
+				</div>
+
+		</section>
+
+		<!-- BOUTON -->
+		<a href="{{path('order')}}" class="buttonBlue">Valider mon panier</a>
+		
+		{% else %}
+			<p class="paragraphType cartVide">Votre panier est vide.</p>
+		{% endif %}
+
+	</main>
+{% endblock %}

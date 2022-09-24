@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de ma commande - Lili Giroud{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('assets/css/order.css')}}">{% endblock %}
+
+
+{% block body %}
+<main id="order" class="validateOrder">
+
+    <!--TITRE H1 -->
+    <h1 class="title"> Confirmation de commande </h1>
+
+    <!-- TITRE H2 -->
+    <h2 class="titleThree alignOrder">Bonjour <strong>{{ order.user.firstname }} {{ order.user.lastname }}</strong></h2>
+    <br><br>
+
+    <!-- PARAGRAPHE -->
+    <p class="paragraphType alignOrder">Nous vous remercions pour votre réservation n° : <strong>{{ order.reference }}</strong>.</p>
+    <p class="paragraphType alignOrder"> Une confirmation vient de vous être envoyée par email à l'adresse : <strong>{{ order.user.email }}</strong>.</p>
+    <br><br>
+    <p class="paragraphType alignOrder">Votre réservation pour votre soin s'effectuera à l'adresse suivante : <br/> {{ order.delivery|raw }}</p>
+    <br><br>
+    <p class="paragraphType alignOrder">Pour suivre votre réservation, rendez-vous dans votre : </p> 
+
+    <!-- LIEN BOUTON -->
+    <a href="{{ path('account') }}" class="buttonBlue buttonAccount">compte</a>.
+    </p>
+    
+</main>
+{% endblock %}
